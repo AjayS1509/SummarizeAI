@@ -30,17 +30,21 @@ def configure_routes(app):
             #     return jsonify({"error coverting audio": str(e)}), 500
 
             try:
-                modules.yt_transcript_api(youtube_url)
+                yt_text = modules.yt_transcript_api(youtube_url)
+                #print(yt_text)
+                return jsonify({"message": "URL received successfully", "url": yt_text}), 200
+                
             
             except:
                 return jsonify({"error coverting text": str(e)}), 500
             
-            # Process the YouTube URL (you can add validation or other processing here)
-            if "youtube.com" not in youtube_url and "youtu.be" not in youtube_url:
-               return jsonify({"error": "Invalid YouTube URL"}), 400
+            # # Process the YouTube URL (you can add validation or other processing here)
+            # if "youtube.com" not in youtube_url and "youtu.be" not in youtube_url:
+            #    return jsonify({"error": "Invalid YouTube URL"}), 400
 
-            # Respond with success
-            return jsonify({"message": "URL received successfully", "url": youtube_url}), 200
+            # # Respond with success
+            # return jsonify({"message": "URL received successfully", "url": youtube_url}), 200
+            
 
         except Exception as e:
             return jsonify({"error": str(e)}), 500

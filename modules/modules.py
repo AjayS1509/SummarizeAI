@@ -41,7 +41,7 @@ def yt_audio_extractor(youtube_url):
 
 
 def yt_transcript_api(url):
-    
+
     try:
         video_id = url.split("v=")[-1]  # Extract video ID from the URL
         # Fetch the transcript
@@ -56,6 +56,7 @@ def yt_transcript_api(url):
         # Optionally, you can save it to a file
         # with open("transcript.txt", "w") as f:
         #     f.write(formatted_text)
+        return formatted_text or ''
 
     except Exception as e:
         print(f"Error: {e}")
