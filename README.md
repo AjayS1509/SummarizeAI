@@ -25,6 +25,7 @@ Noteapp
 └── venv/
 
 ## Installation 🛠️
+```
 - Create a virtual environment:
 ```
 python -m venv venv
@@ -38,4 +39,6 @@ source venv/Scripts/activate
 pip install -r requirements.txt
 ```
 - Run app:
+```
+python app.py
 ```
