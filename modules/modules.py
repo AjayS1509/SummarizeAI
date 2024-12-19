@@ -41,9 +41,9 @@ def yt_audio_extractor(youtube_url):
 
 
 def yt_transcript_api(url):
-    video_id = url.split("v=")[-1]  # Extract video ID from the URL
-
+    
     try:
+        video_id = url.split("v=")[-1]  # Extract video ID from the URL
         # Fetch the transcript
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
 

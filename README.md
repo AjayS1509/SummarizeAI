@@ -8,6 +8,7 @@ Noteapp
 │   └── example.py
 ├── modules
 │   └── __init__.py
+    └── modules.py
 ├── static
 │   ├── images
 │   ├── scripts
