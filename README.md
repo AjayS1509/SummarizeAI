@@ -2,13 +2,15 @@
 ```
 Noteapp
 ├── .GitHub
-├── audio_files	
 ├── handlers
 │   ├── __init__.py
 │   └── example.py
 ├── modules
 │   └── __init__.py
     └── modules.py
+    └── oldcodes.py(commented code)
+    └── summarize.py
+    └── validUrl.py
 ├── static
 │   ├── images
 │   ├── scripts
