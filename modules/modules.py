@@ -4,6 +4,7 @@
 from flask import jsonify
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.formatters import TextFormatter
+from urllib.parse import urlparse, parse_qs
 
 def hello():
     return "Hello, World!"
@@ -41,27 +42,60 @@ def content():
 #     return send_file(audio_path, as_attachment=True, download_name=audio_file)
 
 
-def yt_transcript_api(url):
+# def yt_transcript_api(url):
 
+#     try:
+#         video_id = url.split("v=")[-1]  # Extract video ID from the URL
+#         # Fetch the transcript
+#         transcript = YouTubeTranscriptApi.get_transcript(video_id)
+
+#         # Format the transcript as text
+#         formatter = TextFormatter()
+#         formatted_text = formatter.format_transcript(transcript)
+
+#         #print("!",formatted_text)
+
+#         # Print or save the transcript
+#         #print(formatted_text)
+#         # Optionally, you can save it to a file
+#         # with open("transcript.txt", "w") as f:
+#         #     f.write(formatted_text)
+#         return formatted_text
+#         #return " test1"
+
+#     except Exception as e:
+#         return "Error on converting text"
+#         #print(f"Error: {e}")
+
+
+def yt_transcript_api(url):
     try:
-        video_id = url.split("v=")[-1]  # Extract video ID from the URL
-        # Fetch the transcript
+        # Extract Video ID
+        video_id = extract_video_id(url)
+        if not video_id:
+            return {"error": "Invalid YouTube URL, could not extract video ID"}
+
+        print(f"Extracted Video ID: {video_id}")  # Debugging Log
+
+        # Fetch Transcript
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
 
-        # Format the transcript as text
-        formatter = TextFormatter()
-        formatted_text = formatter.format_transcript(transcript)
+        # Convert to Readable Text
+        formatted_text = "\n".join([entry["text"] for entry in transcript])
 
-        #print("!",formatted_text)
+        print("Transcript fetched successfully!")  # Debugging Log
 
-        # Print or save the transcript
-        #print(formatted_text)
-        # Optionally, you can save it to a file
-        # with open("transcript.txt", "w") as f:
-        #     f.write(formatted_text)
-        return formatted_text
-        #return " test1"
+        return {"transcript": formatted_text}
 
     except Exception as e:
-        return "Error on converting text"
-        #print(f"Error: {e}")
+        print("Transcript API Error:", str(e))  # Log error on Vercel
+        return {"error": str(e)}
+
+def extract_video_id(url):
+    """Extracts the YouTube video ID from various URL formats."""
+    parsed_url = urlparse(url)
+    if "youtube.com" in parsed_url.netloc:
+        return parse_qs(parsed_url.query).get("v", [None])[0]
+    elif "youtu.be" in parsed_url.netloc:
+        return parsed_url.path.lstrip("/")
+    return None
