@@ -60,7 +60,8 @@ def yt_transcript_api(url):
         # with open("transcript.txt", "w") as f:
         #     f.write(formatted_text)
         return formatted_text
+        #return " test1"
 
     except Exception as e:
-        return None
+        return "Error on converting text"
         #print(f"Error: {e}")
