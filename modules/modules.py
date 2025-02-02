@@ -52,6 +52,8 @@ def yt_transcript_api(url):
         formatter = TextFormatter()
         formatted_text = formatter.format_transcript(transcript)
 
+        #print("!",formatted_text)
+
         # Print or save the transcript
         #print(formatted_text)
         # Optionally, you can save it to a file
