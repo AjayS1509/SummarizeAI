@@ -36,7 +36,7 @@ def configure_routes(app):
                 try:
                     yt_text = modules.yt_transcript_api(youtube_url)
                     print(yt_text)
-                    return jsonify({"message": "URL received successfully", "url": yt_text}), 200
+                    return jsonify({"message": "URL received successfully","a_yt_url":youtube_url, "url": yt_text}), 200
                     
                 
                 except:
