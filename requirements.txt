@@ -11,3 +11,4 @@ nltk==3.9.1
 transformers==4.48.2
 tensorflow==2.18.0
 tf-keras==2.18.0
+Flask-Cors==5.0.0

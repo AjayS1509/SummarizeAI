@@ -37,7 +37,7 @@ def yt_transcript_api(url):
 
         summary = abstractive_summarization(formatted_text)
 
-        return {"transcript": summary}
+        return summary
 
     except Exception as e:
         print("Transcript API Error:", str(e))  # Log error on Vercel
