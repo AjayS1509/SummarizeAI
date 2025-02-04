@@ -2,6 +2,7 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 from transformers import pipeline  # Add this import
+import ollama
 
 def summarize_text(text, sentences_count=5):
     # Ensure text isn't too long for Sumy to handle by chunking it
@@ -13,7 +14,17 @@ def summarize_text(text, sentences_count=5):
 
 def abstractive_summarization(text):
     # Ensure the text is not too long for the model
-    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-    summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
+    #summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+    #summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
+
+
+    #response = ollama.chat(model="llama3", messages=[{"role": "user", "content": f"Summarize the following text: {text}"}])
+    response = ollama.chat(model="deepseek-r1:1.5b", messages=[{"role": "user", "content": f"Summarize the following text with sub heading and points: {text}"}])
+
+
+    summary = response["message"]["content"]
+
+
     print(summary)
-    return summary[0]['summary_text']
+    #return summary[0]['summary_text']
+    return summary
