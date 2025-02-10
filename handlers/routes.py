@@ -2,6 +2,7 @@ from flask import render_template, request, jsonify
 from modules import modules, validUrl, download , whisper_summary, summarize
 import whisper
 import torch
+import warnings
 
 def configure_routes(app):
     @app.route("/")
@@ -70,6 +71,8 @@ def configure_routes(app):
             
 
             youtube_url = data["url"]
+            language = data.get("language", "English")  # Defaults to English if 'language' is missing
+
 
             try:
 
@@ -82,18 +85,25 @@ def configure_routes(app):
                 summary = ""
                 
                 try:
+                    # Suppress FutureWarnings related to torch.load
+                    warnings.simplefilter("ignore", category=FutureWarning)
+
+                    # Set device
                     device = "cuda" if torch.cuda.is_available() else "cpu"
+
+                    # Load Whisper model
+                    whisper_model = whisper.load_model("base", device=device)
+
+                    # Transcribe audio
                     audio_file = "./audio_files/speech1.mp3"
-                    whisper_model = whisper.load_model("small", device=device)
-                    #whisper_model = whisper.load_model("turbo",device=device)
                     res = whisper_model.transcribe(audio_file)
                     text_data = res["text"]
                     #result_ADO = 
-                    #print("done text", text_data)
+                    print("done text")
                     #print("transcript done", text_data)
                     try:
                         
-                        summary = summarize.abstractive_summarization(text_data)
+                        summary = summarize.abstractive_summarization(text_data, language)
 
                     except:
                         print("Error 4+")

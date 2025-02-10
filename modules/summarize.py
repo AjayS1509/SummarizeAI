@@ -48,14 +48,23 @@ def summarize_to_html(summarized_text):
     return "".join(html_lines)  # Combine lines into a single HTML string
 
 
-def abstractive_summarization(text):
+def abstractive_summarization(text,language):
     # Ensure the text is not too long for the model
     #summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
     #summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
 
 
     #response = ollama.chat(model="llama3", messages=[{"role": "user", "content": f"Summarize the following text: {text}"}])
-    response = ollama.chat(model="deepseek-r1:1.5b", messages=[{"role": "user", "content": f"Summarize the following text with sub heading and points : {text}"}])
+  # Change this based on user input
+    print("lang", language)
+    response = ollama.chat(
+    model="deepseek-r1:1.5b",
+    messages=[{
+        "role": "user",
+        "content": f"Summarize the content in {language} by providing a concise and well-structured paragraph that maintains logical flow, highlights the most critical points, and ensures clarity while retaining essential information. Present key takeaways naturally within the text, making it easy to grasp important insights without losing context.: {text}"
+    }]
+)
+
 
 
     #print(response)

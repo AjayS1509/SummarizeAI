@@ -3,6 +3,9 @@ from nltk.data import find
 from flask import Flask
 from flask_cors import CORS  # Import Flask-CORS
 from handlers.routes import configure_routes
+  # Suppress INFO and WARNING logs
+
+#import tensorflow as tf
 
 # Check if WordNet is already downloaded
 try:
