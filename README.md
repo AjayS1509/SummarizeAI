@@ -28,7 +28,7 @@ To learn more about Next.js, take a look at the following resources:
 
 
 ## Installation
-
+```
 Install my-project with python
 
 ```
