@@ -51,34 +51,37 @@ python app.py
     
 ## Structure 📂
 
+```
 Noteapp
-├── .GitHub
-├── audio_files
-├── handlers
+├── .github/                     # GitHub-related files
+├── audio_files/                 # Folder for storing audio files
+├── handlers/                    # Request handlers
 │   ├── __init__.py
-│   └── example.py
-├── modules
-│   └── __init__.py
-│   └── download.py
-│   └── modules.py
-│   └── oldcodes.py(commented code)
-│   └── summarize.py
-│   └── validUrl.py
-│   └── whisper_summery.py
-├── static
-│   ├── images
-│   ├── scripts
-│   └── styles
-├── templates
-├── tests
-│   └── __init__.py
-├── .gitignore
-├── LICENSE
-├── README.md
-├── app.py
-├── requirements.txt
-├── vercel.json
-└── venv/
+│   ├── example.py
+├── modules/                     # All functional modules
+│   ├── __init__.py
+│   ├── download.py
+│   ├── modules.py
+│   ├── old_codes.py             # Renamed for readability
+│   ├── summarize.py
+│   ├── valid_url.py             # Consistent naming convention
+│   ├── whisper_summary.py       # Fixed typo
+├── static/                      # Static files
+│   ├── images/
+│   ├── scripts/
+│   ├── styles/
+├── templates/                   # HTML templates
+├── tests/                       # Unit tests
+│   ├── __init__.py
+├── .gitignore                   # Git ignore file
+├── LICENSE                      # License file
+├── README.md                    # Documentation
+├── app.py                       # Main application entry point
+├── requirements.txt             # Dependencies list
+├── vercel.json                   # Vercel deployment config
+└── venv/                        # Virtual environment (should be ignored in Git)
+```
+
 ## Features
 
 ·  Speech-to-Text Conversion:
