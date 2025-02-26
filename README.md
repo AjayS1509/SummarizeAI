@@ -62,10 +62,10 @@ Noteapp
 │   ├── __init__.py
 │   ├── download.py
 │   ├── modules.py
-│   ├── old_codes.py             # Renamed for readability
+│   ├── old_codes.py             # Old code files
 │   ├── summarize.py
-│   ├── valid_url.py             # Consistent naming convention
-│   ├── whisper_summary.py       # Fixed typo
+│   ├── valid_url.py             # Check Valid Url functionality
+│   ├── whisper_summary.py       # Summarization Check
 ├── static/                      # Static files
 │   ├── images/
 │   ├── scripts/
