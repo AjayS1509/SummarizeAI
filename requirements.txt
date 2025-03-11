@@ -22,3 +22,5 @@ yt-dlp==2025.1.26
 ffprobe==0.5
 ffmpeg==1.4
 whisper==1.1.10
+pymongo==4.11.2
+python-dotenv==1.0.1

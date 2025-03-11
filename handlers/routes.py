@@ -1,8 +1,9 @@
 from flask import render_template, request, jsonify
-from modules import modules, validUrl, download , whisper_summary, summarize
+from modules import modules, validUrl, download , whisper_summary, summarize, upload, getFile
 import whisper
 import torch
 import warnings
+import os
 
 def configure_routes(app):
     @app.route("/")
@@ -144,3 +145,41 @@ def configure_routes(app):
         #return jsonify({"message": "URL received successfully","a_yt_url":youtube_url, "transcript": text_data, "summary": summary}), 200
         
         return jsonify({"summary": data}), 200
+    
+
+    @app.route("/api/upload_file", methods=["POST"])
+    def upload_file():
+        try:
+            data = request.get_json()
+
+            youtube_url = data["url"]
+
+            video_URL = str(youtube_url)
+            destination = "./audio_files"
+            final_filename = "speech1"
+            download.download_mp3(video_URL, destination, final_filename)
+
+            # Directly download and upload to MongoDB
+            LOCAL_AUDIO_DIR = "./audio_files"
+            destination = LOCAL_AUDIO_DIR
+            final_filename = "speech1"
+
+            local_file_path = os.path.join(destination, f"{final_filename}.mp3")
+
+            upload.upload_to_mongodb(local_file_path, final_filename)
+
+            return jsonify({"message": "Uploaded Successfully" ,"a_yt_url":youtube_url}), 200
+        
+        except Exception as e:
+            
+           return jsonify({"error": str(e)}), 500
+        
+    @app.route("/api/get_file", methods = ["GET"])
+    def get_file():
+        try:
+            data = getFile.get_latest_audiofile()
+            return jsonify({"message": "Uploaded Successfully" ,"a_yt_url":data}), 200
+        except Exception as e:
+
+            print("Error in getting file!")
+            return jsonify({"error": str(e)}), 500
